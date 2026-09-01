@@ -7,7 +7,9 @@ Start met:
 Vereist:
     pip install streamlit
 """
-
+import base64
+import requests
+from pathlib import Path
 import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
