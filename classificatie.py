@@ -514,7 +514,7 @@ def pas_basis_filters_toe(df: pd.DataFrame, params: ClassificatieParams) -> pd.D
     worden).
     """
     if COL_ARTICLE_TYPE in df.columns:
-        df = df[df[COL_ARTICLE_TYPE].astype(str).str.strip().str.lower()
+        df = df[df[COL_ARTICLE_TYPE].str.strip().str.lower()
                 .isin(set(s.lower() for s in params.article_type_filter))]
     if COL_LOCATIONS in df.columns:
         df = df[df[COL_LOCATIONS].fillna(0) >= params.min_klantlocaties]
