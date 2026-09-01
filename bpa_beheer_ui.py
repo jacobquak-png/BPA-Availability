@@ -1491,11 +1491,29 @@ with tab_classificatie:
                     # met dezelfde twee documenten, zodat de hele tool met de
                     # nieuwste artikel-/orderdata rekent.
                     _nieuwe_excel_bytes = df_naar_filtered_excel_bytes(_df_raw)
-                    with open(OPGESLAGEN_EXCEL_PATH + ".tmp", "wb") as _opgeslagen_excel:
+
+                    _tijdelijk_excel_pad = OPGESLAGEN_EXCEL_PATH + ".tmp"
+                    
+                    with open(_tijdelijk_excel_pad, "wb") as _opgeslagen_excel:
                         _opgeslagen_excel.write(_nieuwe_excel_bytes)
-                    os.replace(OPGESLAGEN_EXCEL_PATH + ".tmp", OPGESLAGEN_EXCEL_PATH)
-                    st.session_state.pop("bron_excel_bytes", None)
+                    
+                    os.replace(
+                        _tijdelijk_excel_pad,
+                        OPGESLAGEN_EXCEL_PATH,
+                    )
+                    
+                    # Zet de nieuwe bron direct in session_state.
+                    # Daardoor detecteert het centrale laadblok bij een rerun niet opnieuw
+                    # een bronwijziging en blijft cls_result behouden.
+                    st.session_state["bron_excel_bytes"] = _nieuwe_excel_bytes
+                    st.session_state["bron_excel_naam"] = os.path.basename(
+                        OPGESLAGEN_EXCEL_PATH
+                    )
+                    
+                    # Het oude overzicht is gebaseerd op de vorige bron en moet opnieuw
+                    # worden berekend. De ranglijst zelf mag NIET worden verwijderd.
                     st.session_state.pop("overzicht_df", None)
+                    
                     invalidate_caches()
                 else:
                     # De (trage) Excel-parse wordt gecachet, zodat alleen de
