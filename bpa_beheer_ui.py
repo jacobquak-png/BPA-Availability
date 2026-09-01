@@ -499,7 +499,7 @@ with tab_overzicht:
                 _code_ov = str(_item_ov.get("code"))
                 _klant_telling_ov[_code_ov] = _klant_telling_ov.get(_code_ov, 0) + 1
         _df_disp["n_klanten"] = (
-            _df_disp["Code"].astype(str).map(_klant_telling_ov).fillna(0).astype(int)
+            _df_disp.index.astype(str).map(_klant_telling_ov).fillna(0)
         )
 
         # Huidige (fysieke) voorraad — handmatig bijgewerkt door BPA
