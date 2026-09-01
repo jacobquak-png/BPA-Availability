@@ -1,0 +1,108 @@
+{
+  "gegenereerd": "2026-08-27 13:25:06.543030",
+  "bron_excel": null,
+  "threshold": 0.0,
+  "parameters": {
+    "threshold": 0.0,
+    "weight_prijs": 0.3333333333333333,
+    "weight_locaties": 0.3333333333333333,
+    "weight_orders": 0.3333333333333333,
+    "orders_power": 2.0,
+    "min_prijs": 0.0,
+    "min_orders": 0.0,
+    "selectie_modus": "top_n",
+    "top_n": 2,
+    "top_pct": 20.0,
+    "min_klantlocaties": 5,
+    "article_type_filter": [
+      "critical",
+      "onbekend"
+    ],
+    "lt_default_waarden": [
+      "30",
+      "30 dagen",
+      "30,0",
+      "30.0"
+    ],
+    "score_methode": "geometrisch",
+    "epsilon": 1.0
+  },
+  "n_items": 5,
+  "lt_overzicht": {
+    "geupdate": 5,
+    "default": 0,
+    "ontbreekt": 0
+  },
+  "items": [
+    {
+      "code": "SIE_6AV2124-0MC01",
+      "score": 64.7,
+      "lt_dagen": 2,
+      "lt_bron": "geupdate",
+      "abc": "A",
+      "descr": "Touch panel TP1200 Comfort 12 inch",
+      "ip": 2417.4,
+      "vp": 4834.8,
+      "mtbf": 10.0,
+      "totaal_orders_5jr": 47.0,
+      "n_cust": 41.0,
+      "lambda_jr": 0.1
+    },
+    {
+      "code": "000271316",
+      "score": 37.7,
+      "lt_dagen": 55,
+      "lt_bron": "geupdate",
+      "abc": "A",
+      "descr": "Motor, servo",
+      "ip": 1374.32,
+      "vp": 2748.64,
+      "mtbf": 10.0,
+      "totaal_orders_5jr": 26.0,
+      "n_cust": 19.0,
+      "lambda_jr": 0.1
+    },
+    {
+      "code": "REDUPLAN-00000008",
+      "score": 47.5,
+      "lt_dagen": 20,
+      "lt_bron": "geupdate",
+      "abc": "A",
+      "descr": "Reductor, servo",
+      "ip": 1102.0,
+      "vp": 2204.0,
+      "mtbf": 5.0,
+      "totaal_orders_5jr": 106.0,
+      "n_cust": 56.0,
+      "lambda_jr": 0.2
+    },
+    {
+      "code": "000539962",
+      "score": 46.2,
+      "lt_dagen": 10,
+      "lt_bron": "geupdate",
+      "abc": "A",
+      "descr": "Vacuum pump",
+      "ip": 1253.0,
+      "vp": 2506.0,
+      "mtbf": 10.0,
+      "totaal_orders_5jr": 66.0,
+      "n_cust": 40.0,
+      "lambda_jr": 0.1
+    },
+    {
+      "code": "MOTSINDMKD071B#A",
+      "score": 36.6,
+      "lt_dagen": 45,
+      "lt_bron": "geupdate",
+      "abc": "A",
+      "descr": "Servo motor",
+      "ip": 2929.58,
+      "vp": 5859.16,
+      "mtbf": 10.0,
+      "totaal_orders_5jr": 20.0,
+      "n_cust": 12.0,
+      "lambda_jr": 0.1
+    }
+  ]
+}

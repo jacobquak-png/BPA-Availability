@@ -1,0 +1,42 @@
+{
+  "aangemaakt": "2026-05-08",
+  "aangepast": "2026-08-31",
+  "standaard_n_klanten": 3,
+  "n_klanten_overrides": {
+    "000271316": 1,
+    "000325690": 1,
+    "000539962": 1,
+    "000680551": 1,
+    "AB_2711PT12W22D9P": 1,
+    "BECK_CX5140-COM-1": 1,
+    "MOTOSERV-00000001": 1,
+    "MOTOSERV-00000002": 1,
+    "MOTOSERV-00000006": 1,
+    "MOTSINDMKD041B#A": 1,
+    "MOTSINDMKD071B#A": 1,
+    "REDUAPE075#A-FG": 1,
+    "REDUAPE100#B-FG": 1,
+    "REDUPLAN-00000008": 1,
+    "REDUPLAN-00000014": 1,
+    "REDUPLAN-00000025": 15,
+    "REDUPLAN-00000041": 1,
+    "REX_CML75.1-3P-905": 1,
+    "SIE_6AV2124-0MC01": 2,
+    "SIG_MDP2200-HHH-03": 1,
+    "mooi": 1
+  },
+  "handmatige_componenten": {},
+  "uitgesloten_componenten": [
+    "MOTSINDMKD041B#A"
+  ],
+  "ip_overrides": {},
+  "lt_overrides": {
+    "MOTSBERVRDM3913#A": 1,
+    "REDUPLAN-00000008": 20
+  },
+  "klanten": {
+    "McCain": []
+  },
+  "voorraad_actueel": {},
+  "vp_overrides": {}
+}
