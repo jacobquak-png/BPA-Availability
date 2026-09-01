@@ -356,7 +356,7 @@ if "overzicht_df" not in st.session_state:
 #  TABS
 # ══════════════════════════════════════════════════════════════════════════════
 
-tab_overzicht, tab_classificatie, tab_subscripties, tab_toevoegen, tab_verwijderen, tab_klanten, tab_historie, tab_kosten, tab_budget, tab_drempel = st.tabs([
+tab_overzicht, tab_classificatie, tab_subscripties, tab_toevoegen, tab_verwijderen, tab_klanten,  tab_kosten= st.tabs([
     "Overzicht 99%",
     "Componenten selecteren",
     "Gegevens aanpassen",
