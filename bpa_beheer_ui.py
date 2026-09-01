@@ -490,63 +490,63 @@ with tab_overzicht:
                 pass
 
        # Werk met een kopie, zodat het oorspronkelijke overzicht niet wordt gewijzigd.
-    _df_disp = st.session_state.overzicht_df.copy()
-    
-    # Code kan zowel een gewone kolom als de DataFrame-index zijn.
-    # Maak er voor de weergave altijd expliciet een kolom van.
-    if "Code" not in _df_disp.columns:
-        if _df_disp.index.name == "Code":
-            _df_disp = _df_disp.reset_index()
-        else:
-            _df_disp = _df_disp.reset_index().rename(
-                columns={"index": "Code"}
+        _df_disp = st.session_state.overzicht_df.copy()
+        
+        # Code kan zowel een gewone kolom als de DataFrame-index zijn.
+        # Maak er voor de weergave altijd expliciet een kolom van.
+        if "Code" not in _df_disp.columns:
+            if _df_disp.index.name == "Code":
+                _df_disp = _df_disp.reset_index()
+            else:
+                _df_disp = _df_disp.reset_index().rename(
+                    columns={"index": "Code"}
+                )
+        
+        # Extra controle om een duidelijkere foutmelding te geven.
+        if "Code" not in _df_disp.columns:
+            st.error(
+                "Het overzicht bevat geen artikelcodekolom. "
+                f"Beschikbare kolommen: {list(_df_disp.columns)}"
             )
-    
-    # Extra controle om een duidelijkere foutmelding te geven.
-    if "Code" not in _df_disp.columns:
-        st.error(
-            "Het overzicht bevat geen artikelcodekolom. "
-            f"Beschikbare kolommen: {list(_df_disp.columns)}"
+            st.stop()
+        
+        # Tel hoeveel klanten ieder component in hun contract hebben.
+        _klant_telling_ov = {}
+        
+        for _klant_naam_ov, _artikelen_ov in cfg.get(
+            "klanten",
+            {},
+        ).items():
+            if not isinstance(_artikelen_ov, list):
+                continue
+        
+            for _item_ov in _artikelen_ov:
+                if not isinstance(_item_ov, dict):
+                    continue
+        
+                _code_ov = str(
+                    _item_ov.get("code", "")
+                ).strip()
+        
+                if not _code_ov:
+                    continue
+        
+                _klant_telling_ov[_code_ov] = (
+                    _klant_telling_ov.get(_code_ov, 0) + 1
+                )
+        
+        _df_disp["Code"] = (
+            _df_disp["Code"]
+            .astype(str)
+            .str.strip()
         )
-        st.stop()
-    
-    # Tel hoeveel klanten ieder component in hun contract hebben.
-    _klant_telling_ov = {}
-    
-    for _klant_naam_ov, _artikelen_ov in cfg.get(
-        "klanten",
-        {},
-    ).items():
-        if not isinstance(_artikelen_ov, list):
-            continue
-    
-        for _item_ov in _artikelen_ov:
-            if not isinstance(_item_ov, dict):
-                continue
-    
-            _code_ov = str(
-                _item_ov.get("code", "")
-            ).strip()
-    
-            if not _code_ov:
-                continue
-    
-            _klant_telling_ov[_code_ov] = (
-                _klant_telling_ov.get(_code_ov, 0) + 1
-            )
-    
-    _df_disp["Code"] = (
-        _df_disp["Code"]
-        .astype(str)
-        .str.strip()
-    )
-    
-    _df_disp["n_klanten"] = (
-        _df_disp["Code"]
-        .map(_klant_telling_ov)
-        .fillna(0)
-        .astype(int)
-    )
+        
+        _df_disp["n_klanten"] = (
+            _df_disp["Code"]
+            .map(_klant_telling_ov)
+            .fillna(0)
+            .astype(int)
+        )
 
         # Huidige (fysieke) voorraad — handmatig bijgewerkt door BPA
         cfg.setdefault("voorraad_actueel", {})
