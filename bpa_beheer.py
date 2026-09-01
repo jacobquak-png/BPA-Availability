@@ -115,14 +115,30 @@ def laad_config() -> dict:
 
 
 def sla_config_op(cfg: dict, excel_file=None) -> None:
-    # Sla eerst een snapshot van de HUIDIGE (old) staat op vóór de nieuwe
-    # config wordt weggeschreven, zodat de Δ-kolommen in het overzicht de
-    # werkelijke wijziging tonen en niet altijd 0 zijn.
+    """
+    Sla eerst een snapshot van de oude situatie op en schrijf daarna
+    de gewijzigde configuratie atomisch naar bpa_config.json.
+    """
+    oude_cfg = laad_config()
+
     try:
-        oude_cfg = laad_config()
         _sla_history_snapshot(oude_cfg, excel_file)
-    except Exception:
-        pass
+    except Exception as exc:
+        print(f"History-snapshot kon niet worden opgeslagen: {exc}")
+
+    cfg["aangepast"] = str(date.today())
+
+    tijdelijk_pad = CONFIG_PATH + ".tmp"
+
+    with open(tijdelijk_pad, "w", encoding="utf-8") as bestand:
+        json.dump(
+            cfg,
+            bestand,
+            ensure_ascii=False,
+            indent=2,
+        )
+
+    os.replace(tijdelijk_pad, CONFIG_PATH)
 
     cfg['aangepast'] = str(date.today())
     with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
