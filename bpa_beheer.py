@@ -116,7 +116,7 @@ def laad_config() -> dict:
 
 def sla_config_op(cfg: dict, excel_file=None) -> None:
     """
-    Sla eerst een snapshot van de oude situatie op en schrijf daarna
+    Bewaar eerst een snapshot van de oude situatie en schrijf daarna
     de gewijzigde configuratie atomisch naar bpa_config.json.
     """
     oude_cfg = laad_config()
@@ -139,11 +139,6 @@ def sla_config_op(cfg: dict, excel_file=None) -> None:
         )
 
     os.replace(tijdelijk_pad, CONFIG_PATH)
-
-    cfg['aangepast'] = str(date.today())
-    with open(CONFIG_PATH, 'w', encoding='utf-8') as f:
-        json.dump(cfg, f, ensure_ascii=False, indent=2)
-    print(f"  ✓ Configuratie opgeslagen in {CONFIG_PATH}")
 
 
 def _sla_history_snapshot(cfg: dict, excel_file=None) -> None:
