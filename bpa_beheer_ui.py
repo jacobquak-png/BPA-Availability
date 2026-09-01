@@ -856,61 +856,6 @@ with tab_subscripties:
         st.session_state.pop("overzicht_df", None)
         st.rerun()
 
-# ─────────────────────────────────────────────────────────────────────────────
-#  TAB 3 – COMPONENT TOEVOEGEN
-# ─────────────────────────────────────────────────────────────────────────────
-
-with tab_toevoegen:
-    st.subheader("Nieuw component toevoegen")
-    st.write("Gebruik dit voor componenten die nog niet in de Excel staan.")
-
-    with st.form("form_toevoegen"):
-        col1, col2 = st.columns(2)
-        with col1:
-            f_code  = st.text_input("Artikelcode *")
-            f_descr = st.text_input("Omschrijving")
-            f_lam   = st.number_input(
-                "Lambda – vraag per jaar *",
-                min_value=0.0001, value=1.0, step=0.1, format="%.4f",
-            )
-        with col2:
-            f_lt = st.number_input(
-                "Levertijd leverancier → BPA (dagen) *",
-                min_value=1, value=30, step=1,
-            )
-            f_n = st.number_input(
-                "Aantal subscripties (Z)",
-                min_value=1, value=1, step=1,
-            )
-            f_ip = st.number_input(
-                "Inkoopprijs (€)", min_value=0.0, value=0.0, step=10.0, format="%.2f",
-            )
-        submitted = st.form_submit_button("➕ Component opslaan")
-
-    if submitted:
-        if not f_code:
-            st.error("Artikelcode is verplicht.")
-        elif f_code in cfg["handmatige_componenten"]:
-            st.warning(f"'{f_code}' bestaat al. Verwijder het eerst via het tabblad 'Component verwijderen'.")
-        else:
-            cfg["handmatige_componenten"][f_code] = {
-                "descr":           f_descr,
-                "lambda_per_jaar": float(f_lam),
-                "lt_dagen":        int(f_lt),
-                "n_klanten":       int(f_n),
-                "ip":              float(f_ip),
-            }
-            sla_config_op(cfg, BytesIO(_excel_bytes))
-            st.success(f"Component '{f_code}' toegevoegd.")
-
-            # Preview berekende basisvoorraden
-            lt_jr = int(f_lt) / 365
-            preview = {
-                f"s@{sl:.1%}": BPAOptimizationModel.inverse_service_level(sl, float(f_lam), lt_jr)
-                for sl in SERVICE_LEVELS
-            }
-            st.write("**Berekende basisvoorraden voor dit component:**")
-            st.dataframe(pd.DataFrame([preview]), use_container_width=False)
 
 # ─────────────────────────────────────────────────────────────────────────────
 #  TAB 4 – COMPONENT VERWIJDEREN
