@@ -363,10 +363,7 @@ tab_overzicht, tab_classificatie, tab_subscripties, tab_toevoegen, tab_verwijder
     "Component toevoegen",
     "Component verwijderen",
     "Klanten & contracten",
-    "Historiek",
     "Kostenanalyse",
-    "Budget-scenario",
-    "Subscriptiedrempel",
 ])
 
 st.markdown(
